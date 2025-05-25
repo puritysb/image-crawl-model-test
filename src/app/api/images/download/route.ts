@@ -22,8 +22,9 @@ export async function GET(request: Request) {
 
     return new NextResponse(fastapiResponse.body, { status: 200, headers });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error in Next.js API route:', error);
-    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
+    const errorMessage = error instanceof Error ? error.message : 'Internal Server Error';
+    return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
 }

@@ -23,7 +23,7 @@ export interface ModelTestResult {
   testDate: string; // ISO 8601 string
   result: 'pass' | 'fail' | 'error';
   score?: number;
-  details?: Record<string, any>; // Flexible field for model-specific results
+  details?: Record<string, unknown>; // Flexible field for model-specific results
 }
 
 export interface CrawlJob {

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
-import { CrawlJob, Database } from '@shared/types';
+import { CrawlJob } from '@shared/types';
 
 export default function CrawlerPage() {
   const [keyword, setKeyword] = useState('');
@@ -31,14 +31,10 @@ export default function CrawlerPage() {
     // Set up real-time subscription for crawl_jobs table
     const channel = supabase
       .channel('crawl_jobs_changes')
-      .on(
-        'postgres_changes',
-        { event: '*', schema: 'public', table: 'crawl_jobs' },
-        (payload: any) => { // Temporarily set to any to resolve type error
-          console.log('Change received!', payload);
-          fetchCrawlJobs(); // Re-fetch jobs on any change
-        }
-      )
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'crawl_jobs' }, (payload: { new: CrawlJob, old: CrawlJob, eventType: string }) => {
+        console.log('Change received!', payload);
+        fetchCrawlJobs(); // Re-fetch jobs on any change
+      })
       .subscribe();
 
     return () => {
@@ -71,8 +67,9 @@ export default function CrawlerPage() {
       setKeyword('');
       setLimit(10);
       fetchCrawlJobs(); // Refresh job list immediately
-    } catch (error: any) {
-      setMessage(`Error: ${error.message}`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+      setMessage(`Error: ${errorMessage}`);
       console.error('Error starting image search job:', error);
     } finally {
       setLoading(false);
@@ -90,8 +87,9 @@ export default function CrawlerPage() {
       }
       setMessage(`Crawl job ${jobId} deleted successfully.`);
       fetchCrawlJobs(); // Refresh job list
-    } catch (error: any) {
-      setMessage(`Error deleting job: ${error.message}`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred.';
+      setMessage(`Error deleting job: ${errorMessage}`);
       console.error('Error deleting crawl job:', error);
     }
   };
