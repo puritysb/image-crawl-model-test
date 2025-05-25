@@ -21,7 +21,11 @@ export default function CrawlerPage() {
       console.error('Error fetching crawl jobs:', error);
     } else {
       // Convert snake_case to camelCase for TypeScript type compatibility
-      setCrawlJobs(data as CrawlJob[]); // Now types match directly
+      // Sort by start_time in descending order (newest first)
+      const sortedData = (data as CrawlJob[]).sort((a, b) => {
+        return new Date(b.start_time).getTime() - new Date(a.start_time).getTime();
+      });
+      setCrawlJobs(sortedData);
     }
   };
 

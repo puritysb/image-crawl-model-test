@@ -29,7 +29,13 @@ export default function ImagesPage() {
     if (error) {
       console.error('Error fetching images:', error);
     } else {
-      setImages(data as ImageMetadata[]);
+      // Sort by crawl_date based on sortOrder
+      const sortedData = (data as ImageMetadata[]).sort((a, b) => {
+        const dateA = new Date(a.crawl_date).getTime();
+        const dateB = new Date(b.crawl_date).getTime();
+        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+      });
+      setImages(sortedData);
     }
     setLoading(false);
   }, [filterKeyword, sortOrder]);
