@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       // 기존 도메인들...
@@ -13,6 +13,14 @@ const nextConfig = {
         hostname: '**', // 모든 HTTP 도메인 허용 (필요시)
       },
     ],
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:8000/api/:path*', // Proxy to FastAPI backend
+      },
+    ];
   },
 };
 
