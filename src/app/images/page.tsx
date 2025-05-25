@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
-import { ImageMetadata, Database } from '@shared/types';
+import { ImageMetadata } from '@shared/types';
 import Image from 'next/image';
 import { XMarkIcon } from '@heroicons/react/24/outline'; // Import XMarkIcon for close button
 
@@ -53,7 +53,7 @@ export default function ImagesPage() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [filterKeyword, sortOrder]);
+  }, [filterKeyword, sortOrder, fetchImages]);
 
   useEffect(() => {
     const handleEsc = (event: KeyboardEvent) => {

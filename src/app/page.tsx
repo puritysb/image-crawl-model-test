@@ -1,6 +1,6 @@
 import React from 'react';
 import { supabase } from '@/lib/supabase';
-import { ImageMetadata, CrawlJob } from '@shared/types';
+import { CrawlJob } from '@shared/types';
 
 export default async function DashboardPage() {
   let totalImages = 0;

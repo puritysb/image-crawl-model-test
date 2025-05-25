@@ -31,7 +31,8 @@ export default function CrawlerPage() {
     // Set up real-time subscription for crawl_jobs table
     const channel = supabase
       .channel('crawl_jobs_changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'crawl_jobs' }, (payload: { new: CrawlJob, old: CrawlJob, eventType: string }) => {
+      // @ts-ignore
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'crawl_jobs' }, (payload: any) => {
         console.log('Change received!', payload);
         fetchCrawlJobs(); // Re-fetch jobs on any change
       })
