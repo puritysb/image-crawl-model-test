@@ -1,0 +1,9 @@
+python-dotenv
+supabase
+fastapi
+uvicorn
+requests
+aiohttp
+beautifulsoup4
+Pillow
+google-api-python-client

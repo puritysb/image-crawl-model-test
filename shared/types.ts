@@ -4,15 +4,16 @@
 export interface ImageMetadata {
   id: string;
   url: string;
-  altText?: string;
+  alt_text?: string; // snake_case to match Supabase
   width?: number;
   height?: number;
   size?: number; // in bytes
   format?: string;
-  sourceUrl: string;
-  crawlDate: string; // ISO 8601 string
+  source_url: string; // snake_case to match Supabase
+  crawl_date: string; // ISO 8601 string (snake_case to match Supabase)
   tags?: string[];
-  modelTestResults?: ModelTestResult[];
+  model_test_results?: ModelTestResult[]; // snake_case to match Supabase
+  keyword?: string; // Keyword used to find this image
 }
 
 export interface ModelTestResult {
@@ -28,12 +29,13 @@ export interface ModelTestResult {
 export interface CrawlJob {
   id: string;
   status: 'pending' | 'running' | 'completed' | 'failed';
-  startTime: string; // ISO 8601 string
-  endTime?: string; // ISO 8601 string
-  targetUrl: string;
-  crawlDepth: number;
-  imageCount: number;
+  start_time: string; // ISO 8601 string (snake_case to match Supabase)
+  end_time?: string; // ISO 8601 string (snake_case to match Supabase)
+  target_url: string; // snake_case to match Supabase
+  crawl_depth: number; // snake_case to match Supabase
+  image_count: number; // snake_case to match Supabase
   errors?: string[];
+  pid?: number; // Process ID for tracking (optional)
 }
 
 // Supabase table types (example)
@@ -42,17 +44,17 @@ export type Database = {
     Tables: {
       image_metadata: {
         Row: ImageMetadata;
-        Insert: Omit<ImageMetadata, 'id' | 'crawlDate'> & { crawlDate?: string };
+        Insert: Omit<ImageMetadata, 'id' | 'crawl_date'> & { crawl_date?: string };
         Update: Partial<ImageMetadata>;
       };
       model_test_results: {
         Row: ModelTestResult;
-        Insert: Omit<ModelTestResult, 'testDate'> & { testDate?: string };
+        Insert: Omit<ModelTestResult, 'test_date'> & { test_date?: string };
         Update: Partial<ModelTestResult>;
       };
       crawl_jobs: {
         Row: CrawlJob;
-        Insert: Omit<CrawlJob, 'id' | 'startTime'> & { startTime?: string };
+        Insert: Omit<CrawlJob, 'id' | 'start_time'> & { start_time?: string };
         Update: Partial<CrawlJob>;
       };
     };

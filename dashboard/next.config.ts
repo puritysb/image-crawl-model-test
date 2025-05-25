@@ -1,7 +1,19 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
+  images: {
+    remotePatterns: [
+      // 기존 도메인들...
+      {
+        protocol: 'https',
+        hostname: '**', // 모든 HTTPS 도메인 허용
+      },
+      {
+        protocol: 'http',
+        hostname: '**', // 모든 HTTP 도메인 허용 (필요시)
+      },
+    ],
+  },
 };
 
 export default nextConfig;
