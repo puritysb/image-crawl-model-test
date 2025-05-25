@@ -13,7 +13,7 @@ export default function ImagesPage() {
   const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('desc'); // 'desc' for newest first
   const [selectedImage, setSelectedImage] = useState<ImageMetadata | null>(null);
 
-  const fetchImages = async () => {
+  const fetchImages = React.useCallback(async () => {
     setLoading(true);
     let query = supabase.from('image_metadata').select('*');
 
@@ -32,7 +32,7 @@ export default function ImagesPage() {
       setImages(data as ImageMetadata[]);
     }
     setLoading(false);
-  };
+  }, [filterKeyword, sortOrder]);
 
   useEffect(() => {
     fetchImages();
