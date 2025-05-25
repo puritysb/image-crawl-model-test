@@ -15,7 +15,7 @@ import zipfile
 from supabase import create_client, Client
 
 # Import API source clients
-from crawler.api_sources import pixabay, pexels, unsplash, google_images
+from api.api_sources import pixabay, pexels, unsplash, google_images
 
 # Load environment variables from the .env file found by traversing up the directory tree
 load_dotenv(find_dotenv())
@@ -135,7 +135,7 @@ async def run_image_search_in_background(keyword: str, limit: int, job_id: str):
             print(f"Not enough images collected from APIs ({len(collected_images)}/{limit}). Considering backup crawling...")
             # Here you would integrate Scrapy or BeautifulSoup4/requests
             # For example:
-            # from crawler.spiders.web_crawler import WebCrawlerSpider
+            # from api.spiders.web_crawler import WebCrawlerSpider
             # process = CrawlerProcess(get_project_settings())
             # process.crawl(WebCrawlerSpider, start_url=f"https://www.example.com/search?q={keyword}", ...)
             # process.start() # This would block, so needs careful handling in FastAPI context

@@ -1,0 +1,21 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/crawl/:path*",
+      "destination": "/api/main.py"
+    },
+    {
+      "source": "/api/crawl/jobs/:path*",
+      "destination": "/api/main.py"
+    },
+    {
+      "source": "/api/health",
+      "destination": "/api/main.py"
+    }
+  ],
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "python3.12"
+    }
+  }
+}
