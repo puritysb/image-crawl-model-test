@@ -18,6 +18,7 @@ const eslintConfig = [
       "react-hooks/exhaustive-deps": "off",
       // Next.js의 no-unused-vars도 비활성화 (선택 사항, 필요시)
       "next/no-unused-vars": "off",
+      "@typescript-eslint/ban-ts-comment": "off", // @ts-ignore 사용 허용
     },
   },
 ];
