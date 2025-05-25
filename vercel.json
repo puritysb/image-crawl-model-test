@@ -17,5 +17,10 @@
     "api/**/*.py": {
       "runtime": "python@3.12"
     }
+  },
+  "build": {
+    "env": {
+      "VERCEL_PYTHON_VERSION": "3.12.x"
+    }
   }
 }
